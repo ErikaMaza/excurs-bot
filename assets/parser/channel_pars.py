@@ -5,7 +5,6 @@ from telethon.tl.functions.messages import GetHistoryRequest
 from assets.parser.database.Post import Post
 from assets.parser.database.database import Database
 
-# Словарь для преобразования русских месяцев в числа
 months_map = {
     "января": "January", "февраля": "February", "марта": "March",
     "апреля": "April", "мая": "May", "июня": "June",
@@ -13,11 +12,8 @@ months_map = {
     "октября": "October", "ноября": "November", "декабря": "December"
 }
 
-# Регулярное выражение для поиска дат
 date_pattern = r"\b(\d{1,2}\.\d{1,2}\.\d{4}|\d{1,2}\s[а-яА-Я]+\s?-\s?\d{1,2}\s[а-яА-Я]+|\d{1,2}\s[а-яА-Я]+|\d{1,2}\.\d{1,2})"
 
-
-# Функция для преобразования найденной строки в дату
 def extract_date(text):
     matches = re.finditer(date_pattern, text)
     for match in matches:
@@ -31,7 +27,6 @@ def extract_date(text):
     return None
 
 
-# Функция парсинга
 async def pars(telegram_client, channel):
     db_path = os.path.join(os.getcwd(), "database", "config", "posts.db")
 
