@@ -1,11 +1,11 @@
 import nodemailer from 'nodemailer'
 
 export const transport = nodemailer.createTransport({
-    host: process.env.HOST,
-    port: 2525,
+    host: "smtp.timeweb.ru",
+    port: 25,
     secure: false,
     auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
+        user: "gidy@po-moscow.ru", 
+        pass: "02AIlBRlC" 
     }
-})
+});

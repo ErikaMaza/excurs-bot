@@ -1,29 +1,39 @@
-import { waitForText } from "../utils/waitForText"
-import { writeExcel } from "./writeExcel"
+import { waitForText } from "../utils/waitForText.js"
+import { writeExcel } from "./writeExcel.js"
+import db from '../db/db.json' with {type: "json"}
+import * as fs from 'fs'
+import {sendEmail} from "./sendEmail.js";
 
 export async function questioning(bot, chatId){
+    const excelData = []
     await bot.sendMessage(chatId, "Напишите название экскурсии на которую хотите записаться")
-
     const excursName = await waitForText(bot, chatId)
 
     await bot.sendMessage(chatId, "Пришлите свой username telegram")
-
     const telegram = await waitForText(bot, chatId)
 
     await bot.sendMessage(chatId, "Пришлите мне ваш email")
-
     const email = await waitForText(bot, chatId)
 
     await bot.sendMessage(chatId, "Пришлите мне ваш номер телефона")
-
     const phone = await waitForText(bot, chatId)
 
+    await bot.sendMessage(chatId, "Пришлите мне дату проведения мироприятия")
+    const date = await waitForText(bot, chatId)
+
     const data = {
+        chatId: chatId,
         name: excursName,
-        contact: telegram,
+        telegram: telegram,
         email: email,
-        phone: phone
+        phone: phone,
+        date: date,
+        createat_at: Date.now()
     }
 
-    writeExcel(data)
+    db.push(data)
+    excelData.push(data)
+    fs.writeFileSync("./assets/db/db.json", JSON.stringify(db, null, '\t'))
+    await sendEmail(email)
+    await writeExcel(excelData)
 }
