@@ -28,6 +28,7 @@ export async function questioning(bot, chatId){
         email: email,
         phone: phone,
         date: date,
+        actual_date: "",
         createat_at: Date.now()
     }
 

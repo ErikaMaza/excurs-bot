@@ -5,7 +5,7 @@ import {processAndScheduleEvents} from "./assets/scripts/reminder.js";
 import {CronJob} from "cron";
 
 dotenv.config()
-
+//TODO: добавить меню
 const bot = new TelegramBot(process.env.TOKEN, {polling: true})
 
 const job = new CronJob('0 12 * * *', async () => {
