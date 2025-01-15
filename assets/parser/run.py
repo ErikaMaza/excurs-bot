@@ -1,4 +1,4 @@
-from assets.parser.parser import main
+from parser import main
 import asyncio
 
 if __name__ == "__main__":

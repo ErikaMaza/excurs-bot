@@ -3,6 +3,7 @@ import { writeExcel } from "./writeExcel.js"
 import db from '../db/db.json' with {type: "json"}
 import * as fs from 'fs'
 import {sendEmail} from "./sendEmail.js";
+import {startParser} from "./requests.js";
 
 export async function questioning(bot, chatId){
     const excelData = []
@@ -35,6 +36,8 @@ export async function questioning(bot, chatId){
     db.push(data)
     excelData.push(data)
     fs.writeFileSync("./assets/db/db.json", JSON.stringify(db, null, '\t'))
-    await sendEmail(email)
+    await sendEmail(bot, email, chatId)
     await writeExcel(excelData)
+    await startParser();
+    return bot.sendMessage(chatId, "Вы были записаны на экскурсию")
 }

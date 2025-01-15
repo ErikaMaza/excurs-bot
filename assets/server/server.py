@@ -10,7 +10,7 @@ from assets.parser.parser import main
 
 
 try:
-    ip = "127.0.0.1"
+    ip = "localhost"
     port = 2005
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.bind((ip, port))
@@ -48,7 +48,7 @@ try:
             print(funct)
 
             if funct == "start_parser":
-                asyncio.run(main())
+                asyncio.run(main)
             return headers_ok
 
         except IndexError:

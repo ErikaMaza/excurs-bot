@@ -3,8 +3,8 @@ import re
 import os
 from datetime import datetime
 from telethon.tl.functions.messages import GetHistoryRequest
-from assets.parser.database.Post import Post
-from assets.parser.database.database import Database
+from database.Post import Post
+from database.database import Database
 
 def extract_date(text):
 
@@ -31,6 +31,8 @@ def save_json(data, file_path):
 
 def is_date_future(date_str):
     try:
+        if date_str is None:
+           return print(f"date_str: {date_str} is None")
         date_obj = datetime.strptime(date_str, "%d.%m.%Y")
         return date_obj > datetime.now()
     except ValueError:
